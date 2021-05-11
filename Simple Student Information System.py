@@ -44,7 +44,7 @@ class Student:
         def addData():
             with open(self.filename, "a", newline="") as file:
                 csvfile = csv.writer(file)
-                if Student_ID.get() == "" or Student_Name.get() == "" or Student_YearLevel.get() == "":
+                if Student_ID.get() == "" or Student_Name.get() == "" or Student_Course.get() == "" or Student_YearLevel.get() == "" or Student_Gender.get() == "":
                     tkinter.messagebox.showinfo("Student Information System", "Please Fill In the Box with *")
                 else:
                     self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
@@ -52,7 +52,7 @@ class Student:
                                                    'Gender': Student_Gender.get()}
                     self.save_data()
                     tkinter.messagebox.showinfo("Student Information System", "Student Recorded Successfully")
-                clear()
+                    clear()
                 displayData()
 
         def displayData():
@@ -121,12 +121,15 @@ class Student:
         def updateData():
             with open(self.filename, "a", newline="") as file:
                 csvfile = csv.writer(file)
-                self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
+                if Student_ID.get() == "" or Student_Name.get() == "" or Student_Course.get() == "" or Student_YearLevel.get() == "" or Student_Gender.get() == "":
+                    tkinter.messagebox.showinfo("Student Information System", "Please Fill In the Box with *")
+                else:
+                    self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
                                                    'Year Level': Student_YearLevel.get(),
                                                    'Gender': Student_Gender.get()}
-                self.save_data()
-                tkinter.messagebox.showinfo("Student Information System", "Student Updated Successfully")
-                clear()
+                    self.save_data()
+                    tkinter.messagebox.showinfo("Student Information System", "Student Updated Successfully")
+                    clear()
                 displayData()
 
         MainFrame = Frame(self.root, bg="Light Gray")
@@ -136,12 +139,6 @@ class Student:
         TitleFrame.pack(side=TOP)
         self.lblTitle = Label(TitleFrame, font=("Poppins", 16), text="STUDENT INFORMATION SYSTEM", bg ="gray15", fg="snow")
         self.lblTitle.grid()
-
-        #ButtonFrame = Frame(MainFrame, width=450, height=50, padx=15, pady=15, bg="Light Gray", relief=RIDGE)
-        #ButtonFrame.pack(side=BOTTOM)
-
-        #SearchFrame = Frame(MainFrame, width=450, height=50, padx=15, pady=15, bg="Light Gray", relief=RIDGE)
-        #SearchFrame.pack(anchor=NE)
 
         DataFrame = Frame(MainFrame, width=450, height=200, padx=15, pady=15, bg="RoyalBlue1", relief=RIDGE)
         DataFrame.pack(side=BOTTOM)
@@ -244,7 +241,7 @@ class Student:
         self.btnSearch = Button(StudentDetailsFrame, text="Search", font=('Poppins', 10), height=1, width=10,
                                 bg="RoyalBlue3", fg="snow", command=searchData)
         self.btnSearch.place(x=103)
-        self.btnRefresh = Button(StudentDetailsFrame, text="Refresh", font=('Poppins', 10), height=1, width=10,
+        self.btnRefresh = Button(StudentDetailsFrame, text="Show All", font=('Poppins', 10), height=1, width=10,
                               bg="RoyalBlue3", fg="snow", command=Refresh)
         self.btnRefresh.grid(row=0, column=0)
         
@@ -252,7 +249,7 @@ class Student:
         
         displayData()
 
-    def save_data(self): #the backbone of this program. The function that store or adds student details in the csv. Ang mag butang og student details sa csv
+    def save_data(self): 
         temps = []
         with open(self.filename, "w", newline='') as update:
             fieldnames = ["ID Number", "Name", "Course", "Year Level", "Gender"]
@@ -260,20 +257,13 @@ class Student:
             writer.writeheader()
             for id, val in self.data.items():
                 temp = {"ID Number": id}
-                #print(temp)#temp is kuhaon ang ID number and kay val ang the rest
-                #print(val) #kuhaon sa sa val ang student details except sa id number
-                for key, value in val.items(): #key is the fieldnames and value is the student details in the fieldnames
-                    temp[key] = value #store student details in their respective fieldname
-                    #print(value) #ang student details except sa id number
-                    #print(key) # ang field names except sa id number
-                temps.append(temp) #To collect the student details to be written in the writer.writerows
-            writer.writerows(temps) #To print the student details in the csv
-        #print(temps)
+                for key, value in val.items(): 
+                    temp[key] = value 
+                temps.append(temp) 
+            writer.writerows(temps) 
+
         
 if __name__ == '__main__':
     root = Tk()
     application = Student(root)
     root.mainloop()
-
-# with open('StudentsInformation.csv', 'w', newline='') as outfile:
-#    writer = csv.writer(outfile)
