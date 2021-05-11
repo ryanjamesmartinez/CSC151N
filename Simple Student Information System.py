@@ -111,13 +111,23 @@ class Student:
             Student_YearLevel.set(values[3])
             Student_Gender.set(values[4])
 
-
         def clear():
             Student_ID.set("")
             Student_Name.set("")
             Student_Course.set("")
             Student_YearLevel.set("")
             Student_Gender.set("")
+            
+        def updateData():
+            with open(self.filename, "a", newline="") as file:
+                csvfile = csv.writer(file)
+                self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
+                                                   'Year Level': Student_YearLevel.get(),
+                                                   'Gender': Student_Gender.get()}
+                self.save_data()
+                tkinter.messagebox.showinfo("Student Information System", "Student Updated Successfully")
+                clear()
+                displayData()
 
         MainFrame = Frame(self.root, bg="Light Gray")
         MainFrame.grid()
@@ -189,7 +199,8 @@ class Student:
         self.lblOwner = Label(self.root, font=("Poppins", 11), text="Submitted by: Martinez, Ryan James J.", bg ="gray15", fg="snow")
         self.lblOwner.place(x=17,y=376)
 
-
+        #Treeview
+        
         scrollbar = Scrollbar(StudentDetailsFrame, orient=VERTICAL)
         scrollbar.grid(row=1, column=1, sticky='ns')
 
@@ -213,11 +224,14 @@ class Student:
         self.studentlist.grid(row=1, column=0, padx=8)
         scrollbar.config(command=self.studentlist.yview)
         
-        
+        #Buttons
 
-        self.btnAddID = Button(StudentInfoFrame, text="Add/Update", font=('Poppins', 10), height=1, width=10, bd=4,
+        self.btnAddID = Button(StudentInfoFrame, text="Add", font=('Poppins', 10), height=1, width=10, bd=4,
                                bg="RoyalBlue3", fg="snow", command=addData)
         self.btnAddID.grid(row=7, column=1)
+        self.btnUpdate = Button(StudentInfoFrame, text="Update", font=('Poppins', 10), height=1, width=10, bd=3,
+                                bg="RoyalBlue3", fg="snow", command=updateData)
+        self.btnUpdate.place(x=25,y=193)
         self.btnClear = Button(StudentInfoFrame, text="Clear", font=('Poppins', 10), height=1, width=10, bd=4,
                                bg="RoyalBlue3", fg="snow", command=clear)
         self.btnClear.grid(row=8, column=1)
@@ -234,10 +248,11 @@ class Student:
                               bg="RoyalBlue3", fg="snow", command=Refresh)
         self.btnRefresh.grid(row=0, column=0)
         
-
+        
+        
         displayData()
 
-    def save_data(self):
+    def save_data(self): #the backbone of this program. The function that store or adds student details in the csv. Ang mag butang og student details sa csv
         temps = []
         with open(self.filename, "w", newline='') as update:
             fieldnames = ["ID Number", "Name", "Course", "Year Level", "Gender"]
@@ -245,12 +260,16 @@ class Student:
             writer.writeheader()
             for id, val in self.data.items():
                 temp = {"ID Number": id}
-                for key, value in val.items():
-                    temp[key] = value
-                temps.append(temp)
-            writer.writerows(temps)
-
-
+                #print(temp)#temp is kuhaon ang ID number and kay val ang the rest
+                #print(val) #kuhaon sa sa val ang student details except sa id number
+                for key, value in val.items(): #key is the fieldnames and value is the student details in the fieldnames
+                    temp[key] = value #store student details in their respective fieldname
+                    #print(value) #ang student details except sa id number
+                    #print(key) # ang field names except sa id number
+                temps.append(temp) #To collect the student details to be written in the writer.writerows
+            writer.writerows(temps) #To print the student details in the csv
+        #print(temps)
+        
 if __name__ == '__main__':
     root = Tk()
     application = Student(root)
