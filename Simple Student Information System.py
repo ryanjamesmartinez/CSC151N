@@ -47,12 +47,33 @@ class Student:
                 if Student_ID.get() == "" or Student_Name.get() == "" or Student_Course.get() == "" or Student_YearLevel.get() == "" or Student_Gender.get() == "":
                     tkinter.messagebox.showinfo("Student Information System", "Please Fill In the Box with *")
                 else:
-                    self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
-                                                   'Year Level': Student_YearLevel.get(),
-                                                   'Gender': Student_Gender.get()}
-                    self.save_data()
-                    tkinter.messagebox.showinfo("Student Information System", "Student Recorded Successfully")
-                    clear()
+                    ID = Student_ID.get()
+                    ID_list = []
+                    for i in ID:
+                        ID_list.append(i)
+                    if "-" in ID_list:
+                        x = ID.split("-")  
+                        year = x[0]
+                        number = x[1]
+                        if year.isdigit()==False or number.isdigit()==False:
+                            try:
+                                tkinter.messagebox.showerror("Student Information System", "Invalid ID")
+                            except:
+                                pass
+                        elif year==" " or number==" ":
+                            try:
+                                tkinter.messagebox.showerror("Student Information System", "Invalid ID")
+                            except:
+                                pass
+                        else:
+                            self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
+                                                           'Year Level': Student_YearLevel.get(),
+                                                           'Gender': Student_Gender.get()}
+                            self.save_data()
+                            tkinter.messagebox.showinfo("Student Information System", "Student Recorded Successfully")
+                            clear()
+                    else:
+                        tkinter.messagebox.showerror("Student Information System", "Invalid ID")
                 displayData()
 
         def displayData():
@@ -85,17 +106,30 @@ class Student:
 
         def searchData():
             x = self.SearchBar.get()
-            if x in self.data:
-                vals = list(self.data[x].values())
-                self.studentlist.delete(*self.studentlist.get_children())
-                self.studentlist.insert("", 0, values=(x, vals[0], vals[1], vals[2], vals[3]))
+            search_list=[]
+            for i in x:
+                search_list.append(i)
+            if "-" in search_list:
+                y = x.split("-")
+                year = y[0]
+                number = y[1]
+                if year.isdigit()==False or number.isdigit()==False:
+                    tkinter.messagebox.showerror("Student Information System", "Invalid ID")
+                else:    
+                    if x in self.data:
+                        vals = list(self.data[x].values())
+                        self.studentlist.delete(*self.studentlist.get_children())
+                        self.studentlist.insert("", 0, values=(x, vals[0], vals[1], vals[2], vals[3]))
+                    else:
+                        tkinter.messagebox.showerror("Student Information System", "Student not found.")
+                        return
             elif x == "":
                 tkinter.messagebox.showerror("Student Information System", "Student not found.")
                 return
             else:
                 tkinter.messagebox.showerror("Student Information System", "Student not found.")
                 return
-            
+
         def Refresh():
             displayData()
 
@@ -124,12 +158,33 @@ class Student:
                 if Student_ID.get() == "" or Student_Name.get() == "" or Student_Course.get() == "" or Student_YearLevel.get() == "" or Student_Gender.get() == "":
                     tkinter.messagebox.showinfo("Student Information System", "Please Fill In the Box with *")
                 else:
-                    self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
-                                                   'Year Level': Student_YearLevel.get(),
-                                                   'Gender': Student_Gender.get()}
-                    self.save_data()
-                    tkinter.messagebox.showinfo("Student Information System", "Student Updated Successfully")
-                    clear()
+                    ID = Student_ID.get()
+                    ID_list = []
+                    for i in ID:
+                        ID_list.append(i)
+                    if "-" in ID_list:
+                        x = ID.split("-")  
+                        year = x[0]
+                        number = x[1]
+                        if year.isdigit()==False or number.isdigit()==False:
+                            try:
+                                tkinter.messagebox.showinfo("Student Information System", "Invalid ID")
+                            except:
+                                pass
+                        elif year==" " or number==" ":
+                            try:
+                                tkinter.messagebox.showinfo("Student Information System", "Invalid ID")
+                            except:
+                                pass
+                        else:
+                            self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
+                                                           'Year Level': Student_YearLevel.get(),
+                                                           'Gender': Student_Gender.get()}
+                            self.save_data()
+                            tkinter.messagebox.showinfo("Student Information System", "Student Recorded Successfully")
+                            clear()
+                    else:
+                        tkinter.messagebox.showinfo("Student Information System", "Invalid ID")
                 displayData()
 
         MainFrame = Frame(self.root, bg="Light Gray")
@@ -159,6 +214,7 @@ class Student:
         self.lblStudentIDFormat.grid(row=1, column=1, sticky=W)
         self.txtStudentID = Entry(StudentInfoFrame, font=("Poppins", 10), textvariable=Student_ID, width=30)
         self.txtStudentID.grid(row=0, column=1)
+        #self.txtStudentID.insert(0,"     -")
 
         self.lblStudentName = Label(StudentInfoFrame, font=("Poppins", 10), text="Full Name:*", padx=5, pady=5,
                                     bg="RoyalBlue1", fg="snow")
