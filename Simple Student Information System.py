@@ -45,7 +45,7 @@ class Student:
             with open(self.filename, "a", newline="") as file:
                 csvfile = csv.writer(file)
                 if Student_ID.get() == "" or Student_Name.get() == "" or Student_Course.get() == "" or Student_YearLevel.get() == "" or Student_Gender.get() == "":
-                    tkinter.messagebox.showinfo("Student Information System", "Please Fill In the Box with *")
+                    tkinter.messagebox.showinfo("Student Information System", "Please fill in the box with *")
                 else:
                     ID = Student_ID.get()
                     ID_list = []
@@ -66,12 +66,15 @@ class Student:
                             except:
                                 pass
                         else:
-                            self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
-                                                           'Year Level': Student_YearLevel.get(),
-                                                           'Gender': Student_Gender.get()}
-                            self.save_data()
-                            tkinter.messagebox.showinfo("Student Information System", "Student Recorded Successfully")
-                            clear()
+                            if ID in self.data:
+                                tkinter.messagebox.showinfo("Student Information System", "Student Already Recorded")                            
+                            else:
+                                self.data[Student_ID.get()] = {'Name': Student_Name.get(), 'Course': Student_Course.get(),
+                                                               'Year Level': Student_YearLevel.get(),
+                                                               'Gender': Student_Gender.get()}
+                                self.save_data()
+                                tkinter.messagebox.showinfo("Student Information System", "Student Recorded Successfully")
+                                clear()                               
                     else:
                         tkinter.messagebox.showerror("Student Information System", "Invalid ID")
                 displayData()
