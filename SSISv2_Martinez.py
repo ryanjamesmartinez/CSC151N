@@ -7,8 +7,6 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
 import tkinter.messagebox
-import csv
-import os
 import sqlite3
 #import SSISv2_backend
 
@@ -75,8 +73,6 @@ class Dashboard(tk.Frame):
         totalenrolledstudents = StringVar() 
         totalcourses = StringVar()
         
-        #👍 👎 📖 👥 📰 📣 🖊️⏲️ 👨‍🎓 🖥️ 📂
-           
         ## Window Buttons
         button1_1 = tk.Button(self, text="⧉",font=("Verdana",30),bd=0,
                             bg="gray17",
@@ -106,11 +102,11 @@ class Dashboard(tk.Frame):
         button2.place(x=1,y=260)
         button2.config(cursor= "hand2")
         
-        button3_1 = tk.Button(self, text="🎓",font=("Verdana",30),bd=0,
+        button3_1 = tk.Button(self, text="👥",font=("Verdana",30),bd=0,
                             bg="gray17",
                             fg="snow",
                             command=lambda: controller.show_frame(Student))
-        button3_1.place(x=8,y=295)
+        button3_1.place(x=8,y=290)
         button3_1.config(cursor= "hand2")
         button3 = tk.Button(self, text="Students",font=("Verdana",10,"bold"),bd=0,
                             width = 10,
@@ -119,40 +115,6 @@ class Dashboard(tk.Frame):
                             command=lambda: controller.show_frame(Student))
         button3.place(x=1,y=360)
         button3.config(cursor= "hand2")
-        """ 
-        def CSM():
-            #csmcourse = ["BS STAT","BS MATH"]
-            topUpS=Toplevel()
-            topUpS.title('College of Science and Mathematics')
-            topUpS.geometry("540x363")
-            topUpS.resizable(0,0)
-            CourseCode = "BS STAT"                
-            con = sqlite3.connect("StudentDatabase.db")
-            cur = con.cursor()
-            cur.execute("SELECT * FROM studentdatabase WHERE Course_Code = ?",(CourseCode,))
-            con.commit()
-            self.studentlist = ttk.Treeview(self,
-                                        columns=("ID Number", "Name", "Course", "Year Level", "Gender"),
-                                        height = 18)
-
-            self.studentlist.heading("ID Number", text="ID Number", anchor=W)
-            self.studentlist.heading("Name", text="Name",anchor=W)
-            self.studentlist.heading("Course", text="Course",anchor=W)
-            self.studentlist.heading("Year Level", text="Year Level",anchor=W)
-            self.studentlist.heading("Gender", text="Gender",anchor=W)
-            self.studentlist['show'] = 'headings'
-    
-            self.studentlist.column("ID Number", width=100, anchor=W, stretch=False)
-            self.studentlist.column("Name", width=200, stretch=False)
-            self.studentlist.column("Course", width=130, anchor=W, stretch=False)
-            self.studentlist.column("Year Level", width=100, anchor=W, stretch=False)
-            self.studentlist.column("Gender", width=100, anchor=W, stretch=False)
-            self.studentlist.place(x=0,y=0)
-            rows = cur.fetchall()
-            for row in rows:
-                 self.studentlist.insert("", tk.END, text=row[0], values=row[0:])
-            con.close()
-            """
         def totalcourse():
             try:
                 conn = sqlite3.connect("StudentDatabase.db")
@@ -204,39 +166,6 @@ class Dashboard(tk.Frame):
                                 command=lambda: controller.show_frame(Course))
         self.totalcourselabel.config(cursor= "hand2")
         self.totalcourselabel.place(x=414,y=254)
-        """
-        self.btnCOET=Button(self, pady=1,bd=0,font=("Poppins", 12,"bold"), padx=24, width=20,height=10, text='', bg="maroon")
-        self.btnCOET.place(x=687,y=110)
-        self.btnCOET.config(cursor= "hand2")
-        coet = tk.Label(self,height = 3,width=35, text="College of Engineering and Technology", bg="gray22", fg="snow")
-        coet.place(x=688,y=259)
-        
-        self.btnCED=Button(self, pady=1,bd=0,font=("Poppins", 12,"bold"), padx=24, width=20,height=10, text='', bg="lightblue")
-        self.btnCED.place(x=960,y=110)
-        self.btnCED.config(cursor= "hand2")
-        ced = tk.Label(self,height = 3,width=35, text="College of Education", bg="gray22", fg="snow")
-        ced.place(x=961,y=259)
-        
-        self.btnCASS=Button(self, pady=1,bd=0,font=("Poppins", 12,"bold"), padx=24, width=20,height=10, text='', bg="green")
-        self.btnCASS.place(x=140,y=330)
-        self.btnCASS.config(cursor= "hand2")
-        cass = tk.Label(self,height = 3,width=35,text="College of Arts and Social Sciences", bg="gray22", fg="snow")
-        cass.place(x=141,y=479)
-        
-        self.btnCBAA=Button(self, pady=1,bd=0,font=("Poppins", 12,"bold"), padx=24, width=20,height=10, text='', bg="yellow")
-        self.btnCBAA.place(x=413,y=330)
-        self.btnCBAA.config(cursor= "hand2")
-        cbaa = tk.Label(self,height = 3,width=35, text="College of Business Administration and Accountancy", bg="gray22", fg="snow")
-        cbaa.place(x=414,y=479)
-        
-        self.btnCON=Button(self, pady=1,bd=0,font=("Poppins", 12,"bold"), padx=24, width=20,height=10, text='', bg="blue")
-        self.btnCON.place(x=687,y=330)
-        self.btnCON.config(cursor= "hand2")
-        con = tk.Label(self,height = 3,width=35, text="College of Nursing", bg="gray22", fg="snow")
-        con.place(x=688,y=479)
-        """
-        #self.CSM = Label(self, font=("Century Gothic", 15),text="Total\n      Students\n     Enrolled", width = 9,bg ="red", fg = "snow")
-        #self.CSM.place(x=120,y=140)
         
         totalcourse()
         totalstudents()
@@ -283,17 +212,20 @@ class Course(tk.Frame):
             conn.close()
             
         def addCourse():
-            conn = sqlite3.connect("StudentDatabase.db")
-            c = conn.cursor()         
-            #Insert Table
-            c.execute("INSERT INTO courses(Course_Code,Course_Name) VALUES (?,?)",\
-                      (Course_Code.get(),Course_Name.get()))        
-            conn.commit()           
-            conn.close()
-            Course_Code.set('')
-            Course_Name.set('') 
-            tkinter.messagebox.showinfo("Student Information System", "Course Recorded Successfully")
-            displayCourse()
+            try:
+                conn = sqlite3.connect("StudentDatabase.db")
+                c = conn.cursor()         
+                #Insert Table
+                c.execute("INSERT INTO courses(Course_Code,Course_Name) VALUES (?,?)",\
+                          (Course_Code.get(),Course_Name.get()))        
+                conn.commit()           
+                conn.close()
+                Course_Code.set('')
+                Course_Name.set('') 
+                tkinter.messagebox.showinfo("Student Information System", "Course Recorded Successfully")
+                displayCourse()
+            except:
+                tkinter.messagebox.showinfo("Student Information System", "Course Already Exists")
               
         def displayCourse():
             self.courselist.delete(*self.courselist.get_children())
@@ -355,7 +287,8 @@ class Course(tk.Frame):
             self.courselist.delete(*self.courselist.get_children())
             rows = cur.fetchall()
             for row in rows:
-                self.courselist.insert("", tk.END, text=row[0], values=row[0:])
+                if row[0].startswith(Course_Code):
+                    self.courselist.insert("", tk.END, text=row[0], values=row[0:])
             con.close()
  
         def Refresh():
@@ -400,11 +333,11 @@ class Course(tk.Frame):
         button2.place(x=1,y=260)
         button2.config(cursor= "hand2")
         
-        button3_1 = tk.Button(self, text="🎓",font=("Verdana",30),bd=0,
+        button3_1 = tk.Button(self, text="👥",font=("Verdana",30),bd=0,
                             bg="gray17",
                             fg="snow",
                             command=lambda: controller.show_frame(Student))
-        button3_1.place(x=8,y=295)
+        button3_1.place(x=8,y=290)
         button3_1.config(cursor= "hand2")
         button3 = tk.Button(self, text="Students",font=("Verdana",10,"bold"),bd=0,
                             width = 10,
@@ -512,13 +445,7 @@ class Student(tk.Frame):
                             bg="gray17",
                             fg="snow",)
         apptitle.place(x=20,y=50)
-        
-        ## Icons
-        #icon1 = ImageTk.PhotoImage(Image.open("D:/Ryan/College/Second Year Second Sem/CSC151N/Python/SSISV2/scratch"))
-        #label1 = tk.Label(image=icon1)
-        #label1.place(x=1117,y=105)
-        
-        
+
         ## Window Buttons
         
         button1_1 = tk.Button(self, text="⧉",font=("Verdana",30),bd=0,
@@ -549,11 +476,11 @@ class Student(tk.Frame):
         button2.place(x=1,y=260)
         button2.config(cursor= "hand2")
         
-        button3_1 = tk.Button(self, text="🎓",font=("Verdana",30),bd=0,
+        button3_1 = tk.Button(self, text="👥",font=("Verdana",30),bd=0,
                             bg="gray17",
                             fg="RoyalBlue1",
                             command=lambda: controller.show_frame(Student))
-        button3_1.place(x=8,y=295)
+        button3_1.place(x=8,y=290)
         button3_1.config(cursor= "hand2")
         button3 = tk.Button(self, text="Students",font=("Verdana",10,"bold"),bd=0,
                             width = 10,
@@ -563,12 +490,10 @@ class Student(tk.Frame):
         button3.place(x=1,y=360)
         button3.config(cursor= "hand2")
         
-        ## Functions
         Student_ID = StringVar()
         Student_Name = StringVar()       
         Student_YearLevel = StringVar()
         Student_Gender = StringVar()
-        #Student_Course = StringVar()
         Course_Code = StringVar()
         SearchBar_Var = StringVar()
         
@@ -654,14 +579,17 @@ class Student(tk.Frame):
                     conn = sqlite3.connect("StudentDatabase.db")
                     cur = conn.cursor()
                     cur.execute("PRAGMA foreign_keys = ON")
-                    cur.execute("UPDATE studentdatabase SET Student_ID=?, Student_Name=?, Course_Code=?, Student_YearLevel=?,Student_Gender=?\
-                          WHERE Student_ID=?", (Student_ID.get(),Student_Name.get(),Course_Code.get(),Student_YearLevel.get(), Student_Gender.get(),\
-                              self.studentlist.set(selected, '#1')))
-                    conn.commit()
-                    tkinter.messagebox.showinfo("Student Information System", "Student Updated Successfully")
-                    displayData()
-                    clear()
-                    conn.close()
+                    try:
+                        cur.execute("UPDATE studentdatabase SET Student_ID=?, Student_Name=?, Course_Code=?, Student_YearLevel=?,Student_Gender=?\
+                              WHERE Student_ID=?", (Student_ID.get(),Student_Name.get(),Course_Code.get(),Student_YearLevel.get(), Student_Gender.get(),\
+                                  self.studentlist.set(selected, '#1')))
+                        conn.commit()
+                        tkinter.messagebox.showinfo("Student Information System", "Student Updated Successfully")
+                        displayData()
+                        clear()
+                        conn.close()
+                    except:
+                        tkinter.messagebox.showerror("Student Information System", "Cannot Update Course")
         
         def deleteData():   
             try:
@@ -813,8 +741,6 @@ class Student(tk.Frame):
         
         self.studentlist.bind("<Double-1>",OnDoubleClick)
         
-        
-
         self.studentlist.place(x=575,y=140)
         scrollbar.config(command=self.studentlist.yview)
         
