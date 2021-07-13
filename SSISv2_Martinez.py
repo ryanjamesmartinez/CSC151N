@@ -53,7 +53,6 @@ class Dashboard(tk.Frame):
                             fg="snow",)
         apptitle.place(x=20,y=50)
         
-        
         totalenrolledstudents = StringVar() 
         totalcourses = StringVar()
         
@@ -770,8 +769,6 @@ class App(tk.Tk):
 
         frame = self.frames[page_number]
         frame.tkraise()
-    
-        
-app = App()
-app.geometry("1260x600")
-app.mainloop()
+           
+App().geometry("1260x600")
+App().mainloop()
