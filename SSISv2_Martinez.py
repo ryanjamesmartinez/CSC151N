@@ -34,10 +34,10 @@ class Dashboard(tk.Frame):
         leftcolor = tk.Label(self,height = 600,width=13, bg="gray17")
         leftcolor.place(x=0,y=0)
         
-        canvas = Canvas(self, width = 2000)
+        canvas = tk.Canvas(self, width = 2000)
         canvas.create_line(30, 65, 1120, 65,fill="gray")
         canvas.place(x=103,y=10)
-        canvas2 = Canvas(self, width = 2000)
+        canvas2 = tk.Canvas(self, width = 2000)
         canvas2.create_line(30, 65, 1120, 65,fill="gray")
         canvas2.place(x=103,y=500)
         
@@ -53,8 +53,8 @@ class Dashboard(tk.Frame):
                             fg="snow",)
         apptitle.place(x=20,y=50)
         
-        totalenrolledstudents = StringVar() 
-        totalcourses = StringVar()
+        totalenrolledstudents = tk.StringVar() 
+        totalcourses = tk.StringVar()
         
         ## Window Buttons
         button1_1 = tk.Button(self, text="⧉",font=("Verdana",30),bd=0,
@@ -106,7 +106,7 @@ class Dashboard(tk.Frame):
                 cur.execute("SELECT * FROM courses")
                 rows = cur.fetchall()
                 totalcourses.set(len(rows))
-                self.totalenrolled = Label(self, font=("Poppins", 40, "bold"),textvariable = totalcourses, bg ="Royalblue", fg = "snow")
+                self.totalenrolled = tk.Label(self, font=("Poppins", 40, "bold"),textvariable = totalcourses, bg ="Royalblue", fg = "snow")
                 self.totalenrolled.place(x=580,y=150)
                 self.after(1000,totalcourse)
                 conn.commit()            
@@ -121,7 +121,7 @@ class Dashboard(tk.Frame):
                 cur.execute("SELECT * FROM studentdatabase")
                 rows = cur.fetchall()
                 totalenrolledstudents.set(len(rows))
-                self.totalenrolled = Label(self, font=("Poppins", 40, "bold"),textvariable = totalenrolledstudents, bg ="Royalblue", fg = "snow")
+                self.totalenrolled = tk.Label(self, font=("Poppins", 40, "bold"),textvariable = totalenrolledstudents, bg ="Royalblue", fg = "snow")
                 self.totalenrolled.place(x=310,y=150)
                 self.after(1000,totalstudents)
                 conn.commit()            
@@ -129,24 +129,24 @@ class Dashboard(tk.Frame):
             except:
                 pass
 
-        self.totalstudents=Button(self, font=("Century Gothic", 15), padx=3,width=20,height=6, bd=0,
+        self.totalstudents=tk.Button(self, font=("Century Gothic", 15), padx=3,width=20,height=6, bd=0,
                      text="Total\n      Students\n     Enrolled",anchor=W, bg="Royalblue",fg="snow",
                      command=lambda: controller.show_frame(Student))
         self.totalstudents.config(cursor= "hand2")
         self.totalstudents.place(x=141,y=110)
         
-        self.totalstudentlabel = Button(self,font=("Century Gothic", 9,"underline"), height = 3,width=35, text="More Info ⯆", bd=0, bg="gray22", fg="snow",
+        self.totalstudentlabel = tk.Button(self,font=("Century Gothic", 9,"underline"), height = 3,width=35, text="More Info ⯆", bd=0, bg="gray22", fg="snow",
                                  command=lambda: controller.show_frame(Student))
         self.totalstudentlabel.config(cursor= "hand2")
         self.totalstudentlabel.place(x=141,y=254)
         
-        self.totalcourse=Button(self, font=("Century Gothic", 15), padx = 3, width=20, height=6, bd=0, 
+        self.totalcourse=tk.Button(self, font=("Century Gothic", 15), padx = 3, width=20, height=6, bd=0, 
                      text="Total\n    Courses\n       Available",anchor=W, bg="Royalblue",fg="snow",
                      command=lambda: controller.show_frame(Course))
         self.totalcourse.config(cursor= "hand2")
         self.totalcourse.place(x=414,y=110)
         
-        self.totalcourselabel = Button(self,font=("Century Gothic", 9,"underline"), height = 3,width=35, text="More Info ⯆", bd=0, bg="gray22", fg="snow",
+        self.totalcourselabel = tk.Button(self,font=("Century Gothic", 9,"underline"), height = 3,width=35, text="More Info ⯆", bd=0, bg="gray22", fg="snow",
                                 command=lambda: controller.show_frame(Course))
         self.totalcourselabel.config(cursor= "hand2")
         self.totalcourselabel.place(x=414,y=254)
@@ -164,10 +164,10 @@ class Course(tk.Frame):
         leftcolor = tk.Label(self,height = 600,width=13, bg="gray17")
         leftcolor.place(x=0,y=0)
         
-        canvas = Canvas(self, width = 2000)
+        canvas = tk.Canvas(self, width = 2000)
         canvas.create_line(30, 65, 1120, 65,fill="gray")
         canvas.place(x=103,y=10)
-        canvas2 = Canvas(self, width = 2000)
+        canvas2 = tk.Canvas(self, width = 2000)
         canvas2.create_line(30, 65, 1120, 65,fill="gray")
         canvas2.place(x=103,y=500)
         label = tk.Label(self, text="Course", font=("Century Gothic", 20))
@@ -182,9 +182,9 @@ class Course(tk.Frame):
                             fg="snow",)
         apptitle.place(x=20,y=50)
         
-        Course_Code = StringVar()
-        Course_Name = StringVar()
-        SearchBar_Var = StringVar()
+        Course_Code = tk.StringVar()
+        Course_Name = tk.StringVar()
+        SearchBar_Var = tk.StringVar()
         
             
         def addCourse():
@@ -324,18 +324,18 @@ class Course(tk.Frame):
 
         ## Label and Entry
         
-        lblCourseCode = Label(self, font=("Poppins", 12, "bold"), text="COURSE CODE:*", padx=5, pady=5)
+        lblCourseCode = tk.Label(self, font=("Poppins", 12, "bold"), text="COURSE CODE:*", padx=5, pady=5)
         lblCourseCode.place(x=125,y=144)
-        txtCourseCode = Entry(self, font=("Poppins", 13), textvariable=Course_Code, width=31)
+        txtCourseCode = tk.Entry(self, font=("Poppins", 13), textvariable=Course_Code, width=31)
         txtCourseCode.place(x=270,y=150)
         #self.txtStudentID.insert(0,"     -")
 
-        lblCourseName = Label(self, font=("Poppins", 12,"bold"), text="COURSE NAME:*", padx=5, pady=5)
+        lblCourseName = tk.Label(self, font=("Poppins", 12,"bold"), text="COURSE NAME:*", padx=5, pady=5)
         lblCourseName.place(x=125,y=205)
-        txtCourseName = Entry(self, font=("Poppins", 13), textvariable=Course_Name, width=31)
+        txtCourseName = tk.Entry(self, font=("Poppins", 13), textvariable=Course_Name, width=31)
         txtCourseName.place(x=270,y=210)
         
-        SearchBar = Entry(self, font=("Poppins", 11), textvariable=SearchBar_Var, bd=0,width=37)
+        SearchBar = tk.Entry(self, font=("Poppins", 11), textvariable=SearchBar_Var, bd=0,width=37)
         SearchBar.place(x=876,y=110)
         SearchBar.insert(0,'Search course code here')
         #self.lblOwner = Label(self, font=("Poppins", 11), text="Submitted by: Martinez, Ryan James J.", bg ="gray15", fg="snow")
@@ -369,26 +369,26 @@ class Course(tk.Frame):
             
         ## Buttons
 
-        btnAddID = Button(self, text="➕  ADD", font=('Poppins', 11, ), height=1, width=10, bd=1,
+        btnAddID = tk.Button(self, text="➕  ADD", font=('Poppins', 11, ), height=1, width=10, bd=1,
                                bg="grey22", fg="snow",command=addCourse)
         btnAddID.place(x=240,y=420)
         btnAddID.config(cursor= "hand2")
-        btnUpdate = Button(self, text="⟲  UPDATE", font=('Poppins', 11), height=1, width=10, bd=1,
+        btnUpdate = tk.Button(self, text="⟲  UPDATE", font=('Poppins', 11), height=1, width=10, bd=1,
                                 bg="grey22", fg="snow", command=updateCourse) 
         btnUpdate.place(x=350,y=420)
         btnUpdate.config(cursor= "hand2")
-        btnClear = Button(self, text="CLEAR", font=('Poppins', 11), height=1, width=10, bd=1,
+        btnClear = tk.Button(self, text="CLEAR", font=('Poppins', 11), height=1, width=10, bd=1,
                                bg="grey22", fg="snow", command=clear)
         btnClear.place(x=130,y=420)
         btnClear.config(cursor= "hand2")
-        btnDelete = Button(self, text="➖  DELETE", font=('Poppins', 11), height=1, width=10, bd=1,
+        btnDelete = tk.Button(self, text="➖  DELETE", font=('Poppins', 11), height=1, width=10, bd=1,
                                 bg="grey22", fg="snow", command=deleteCourse)
         btnDelete.place(x=460,y=420)
         btnDelete.config(cursor= "hand2")
-        btnSearch = Button(self, text="🔍", font=('Poppins', 15),bd=0, fg="grey22", command=searchCourse)
+        btnSearch = tk.Button(self, text="🔍", font=('Poppins', 15),bd=0, fg="grey22", command=searchCourse)
         btnSearch.place(x=1170,y=100)
         btnSearch.config(cursor= "hand2")
-        btnRefresh = Button(self, text="Show All", font=('Poppins', 10), height=1, width=11,
+        btnRefresh = tk.Button(self, text="Show All", font=('Poppins', 10), height=1, width=11,
                               bg="grey22", fg="snow", command=Refresh)
         btnRefresh.place(x=575,y=105)
         btnRefresh.config(cursor= "hand2")
@@ -406,10 +406,10 @@ class Student(tk.Frame):
         leftcolor = tk.Label(self,height = 600,width = 13, bg="gray17")
         leftcolor.place(x=0,y=0)
         
-        canvas = Canvas(self, width = 2000)
+        canvas = tk.Canvas(self, width = 2000)
         canvas.create_line(30, 65, 1120, 65,fill="gray")
         canvas.place(x=103,y=10)
-        canvas2 = Canvas(self, width = 2000)
+        canvas2 = tk.Canvas(self, width = 2000)
         canvas2.create_line(30, 65, 1130, 65,fill="gray")
         canvas2.place(x=103,y=500)
         label = tk.Label(self, text="Students", font=("Century Gothic", 20))
@@ -468,12 +468,12 @@ class Student(tk.Frame):
         button3.place(x=1,y=360)
         button3.config(cursor= "hand2")
         
-        Student_ID = StringVar()
-        Student_Name = StringVar()       
-        Student_YearLevel = StringVar()
-        Student_Gender = StringVar()
-        Course_Code = StringVar()
-        SearchBar_Var = StringVar()
+        Student_ID = tk.StringVar()
+        Student_Name = tk.StringVar()       
+        Student_YearLevel = tk.StringVar()
+        Student_Gender = tk.StringVar()
+        Course_Code = tk.StringVar()
+        SearchBar_Var = tk.StringVar()
         
         def addData():
             if Student_ID.get() == "" or Student_Name.get() == "" or Course_Code.get() == "" or Student_YearLevel.get() == "" or Student_Gender.get() == "": 
@@ -640,28 +640,28 @@ class Student(tk.Frame):
             
         ## Label and Entry
         
-        lblStudentID = Label(self, font=("Poppins", 12,"bold"), text="STUDENT ID:*", padx=5, pady=5)
+        lblStudentID = tk.Label(self, font=("Poppins", 12,"bold"), text="STUDENT ID:*", padx=5, pady=5)
         lblStudentID.place(x=125,y=144)
-        lblStudentIDFormat = Label(self, font=("Poppins", 12,"bold"), text="(YYYY - NNNN)")
+        lblStudentIDFormat = tk.Label(self, font=("Poppins", 12,"bold"), text="(YYYY - NNNN)")
         lblStudentIDFormat.place(x=255,y=178)
-        txtStudentID = Entry(self, font=("Poppins", 13), textvariable=Student_ID, width=33)
+        txtStudentID = tk.Entry(self, font=("Poppins", 13), textvariable=Student_ID, width=33)
         txtStudentID.place(x=255,y=150)
         #self.txtStudentID.insert(0,"     -")
 
-        lblStudentName = Label(self, font=("Poppins", 12,"bold"), text="FULL NAME:*", padx=5, pady=5)
+        lblStudentName = tk.Label(self, font=("Poppins", 12,"bold"), text="FULL NAME:*", padx=5, pady=5)
         lblStudentName.place(x=125,y=205)
-        txtStudentName = Entry(self, font=("Poppins", 13), textvariable=Student_Name, width=33)
+        txtStudentName = tk.Entry(self, font=("Poppins", 13), textvariable=Student_Name, width=33)
         txtStudentName.place(x=255,y=210)
-        lblStudentNameFormat = Label(self, font=("Poppins", 12,"bold"),
+        lblStudentNameFormat = tk.Label(self, font=("Poppins", 12,"bold"),
                                           text="(SURNAME, NAME, MIDDLE INITIAL)")
         lblStudentNameFormat.place(x=255,y=238)
         
-        lblStudentCourse = Label(self, font=("Poppins", 12,"bold"), text="COURSE:*", padx=5, pady=5)
+        lblStudentCourse = tk.Label(self, font=("Poppins", 12,"bold"), text="COURSE:*", padx=5, pady=5)
         lblStudentCourse.place(x=125,y=269)
-        txtStudentCourse = Entry(self, font=("Poppins", 13), textvariable=Course_Code, width=33)
+        txtStudentCourse = tk.Entry(self, font=("Poppins", 13), textvariable=Course_Code, width=33)
         txtStudentCourse.place(x=255,y=274)
 
-        lblStudentYearLevel = Label(self, font=("Poppins", 12,"bold"), text="YEAR LEVEL:*", padx=5, pady=5)
+        lblStudentYearLevel = tk.Label(self, font=("Poppins", 12,"bold"), text="YEAR LEVEL:*", padx=5, pady=5)
         lblStudentYearLevel.place(x=125,y=315)
         txtStudentYearLevel = ttk.Combobox(self,
                                                 value=["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year"],
@@ -670,17 +670,15 @@ class Student(tk.Frame):
         txtStudentYearLevel.place(x=255,y=320)
         
 
-        lblStudentGender = Label(self, font=("Poppins", 12,"bold"), text="GENDER:*", padx=5, pady=5)
+        lblStudentGender = tk.Label(self, font=("Poppins", 12,"bold"), text="GENDER:*", padx=5, pady=5)
         lblStudentGender.place(x=125,y=361)
         txtStudentGender = ttk.Combobox(self, value=["Male", "Female"], font=("Poppins", 13),
                                              state="readonly", textvariable=Student_Gender, width=31)
         txtStudentGender.place(x=255,y=366)
    
-        SearchBar = Entry(self, font=("Poppins", 11), textvariable=SearchBar_Var, bd=0, width=37)
+        SearchBar = tk.Entry(self, font=("Poppins", 11), textvariable=SearchBar_Var, bd=0, width=37)
         SearchBar.place(x=876,y=110)
         SearchBar.insert(0,'Search here')
-        lblOwner = Label(self, font=("Poppins", 11), text="Submitted by: Martinez, Ryan James J.", bg ="gray15", fg="snow")
-        #self.lblOwner.place(x=17,y=376)
 
         ## Treeview
         
@@ -715,26 +713,26 @@ class Student(tk.Frame):
         
         ## Buttons
         
-        btnAddID = Button(self, text="➕ ADD", font=('Poppins', 11), height=1, width=10, bd=1, 
+        btnAddID = tk.Button(self, text="➕ ADD", font=('Poppins', 11), height=1, width=10, bd=1, 
                                bg="grey22", fg="snow", command=addData)
         btnAddID.place(x=240,y=420)
         btnAddID.config(cursor= "hand2")
-        btnUpdate = Button(self, text="⟲  UPDATE", font=('Poppins', 11), height=1, width=10, bd=1,
+        btnUpdate = tk.Button(self, text="⟲  UPDATE", font=('Poppins', 11), height=1, width=10, bd=1,
                                 bg="grey22", fg="snow", command=updateData)
         btnUpdate.place(x=350,y=420)
         btnUpdate.config(cursor= "hand2")
-        btnClear = Button(self, text="CLEAR", font=('Poppins', 11), height=1, width=10, bd=1,
+        btnClear = tk.Button(self, text="CLEAR", font=('Poppins', 11), height=1, width=10, bd=1,
                                bg="grey22", fg="snow", command=clear)
         btnClear.place(x=130,y=420)
         btnClear.config(cursor= "hand2")
-        btnDelete = Button(self, text="➖  DELETE", font=('Poppins', 11), height=1, width=10, bd=1,
+        btnDelete = tk.Button(self, text="➖  DELETE", font=('Poppins', 11), height=1, width=10, bd=1,
                                 bg="grey22", fg="snow", command=deleteData)
         btnDelete.place(x=460,y=420)
         btnDelete.config(cursor= "hand2")
-        btnSearch = Button(self, text="🔍", font=('Poppins', 15),bd=0, fg="grey22", command=searchData)
+        btnSearch = tk.Button(self, text="🔍", font=('Poppins', 15),bd=0, fg="grey22", command=searchData)
         btnSearch.place(x=1170,y=100)
         btnSearch.config(cursor= "hand2")
-        btnRefresh = Button(self, text="Show All", font=('Poppins', 10), height=1, width=11,
+        btnRefresh = tk.Button(self, text="Show All", font=('Poppins', 10), height=1, width=11,
                               bg="grey22", fg="snow",command = Refresh)
         btnRefresh.place(x=575,y=105)
         btnRefresh.config(cursor= "hand2")
